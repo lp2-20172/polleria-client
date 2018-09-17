@@ -6,12 +6,8 @@ import Typography from 'material-ui/Typography'
 import TextField from 'material-ui/TextField';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-import IconButton from 'material-ui/IconButton'
-import DeleteIcon from 'material-ui-icons/Delete';
-import EditIcon from 'material-ui-icons/Edit';
 
-
-import { getList, del } from '../../actions/producto-action'
+import { getList, del } from '../../../actions/user-action'
 import { connect } from 'react-redux'
 
 import Button from 'material-ui/Button';
@@ -33,7 +29,7 @@ class List extends Component {
     }
 
     handleClick = () => {
-        this.props.history.push('/catalogo/productos/new');
+        this.props.history.push('/core/users/new');
     }
 
     render() {
@@ -50,12 +46,12 @@ class List extends Component {
             <Card>
                 <CardHeader
                     avatar={
-                        <Avatar src="http://www.josephandmeryschool.edu.pe/images/03-icono-empleados.png" >
-                            
+                        <Avatar aria-label="Recipe" >
+                            R
                           </Avatar>
                     }
-                    title="categorias"
-                    subheader=""
+                    title="User List"
+                    subheader="Users list"
                 />
 
                 <CardContent>
@@ -82,11 +78,9 @@ class List extends Component {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>#</TableCell>
-                                    <TableCell >Nombre</TableCell>
-                                    <TableCell >Código</TableCell>
-                                    <TableCell >Detalle</TableCell>
-                                    <TableCell >Precio</TableCell>
-                                    <TableCell >Categoria</TableCell>
+                                    <TableCell >User_Name</TableCell>
+                                    <TableCell >Email</TableCell>
+                                    <TableCell >Estado</TableCell>
                                     <TableCell >Edit</TableCell>
                                     <TableCell >Delete</TableCell>
                                 </TableRow>
@@ -96,19 +90,14 @@ class List extends Component {
                                 {list.map((d, index) =>
                                     <TableRow key={index}>
                                         <TableCell numeric>{index + 1}</TableCell>
-                                        <TableCell >{d.nombre}</TableCell>
-                                        <TableCell >{d.codigo}</TableCell>
-                                        <TableCell >{d.detalle}</TableCell>
-                                        <TableCell >{d.precio_venta}</TableCell>
-                                        <TableCell >{d.categoria}</TableCell>
+                                        <TableCell >{d.username}</TableCell>
+                                        <TableCell >{d.email}</TableCell>
+                                        <TableCell >{d.is_staff}</TableCell>
                                         <TableCell >
-                                            <Link to={`/catalogo/productos/edit/${d.id}`}  ><EditIcon color="blue" /></Link>
-                                          
+                                            <Link to={`/core/users/edit/${d.id}`} className="ui basic button green">Edit</Link>
                                         </TableCell>
-                                         <TableCell >
-                                            <IconButton aria-label="Delete" onClick={() => del(d.id, this.props.history)}>
-                                                <DeleteIcon color = "red"/>
-                                            </IconButton>
+                                        <TableCell >
+                                            <Button onClick={() => del(d.id, this.props.history)} >Delete</Button>
                                         </TableCell>
                                     </TableRow>
                                 )}
@@ -127,7 +116,7 @@ List.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        list: state.producto.list
+        list: state.user.list
     }
 }
 

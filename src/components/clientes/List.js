@@ -6,6 +6,10 @@ import Typography from 'material-ui/Typography'
 import TextField from 'material-ui/TextField';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton'
+import DeleteIcon from 'material-ui-icons/Delete';
+import EditIcon from 'material-ui-icons/Edit';
+
 
 import { getList, del } from '../../actions/cliente-action'
 import { connect } from 'react-redux'
@@ -46,12 +50,12 @@ class List extends Component {
             <Card>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe" >
-                            R
+                        <Avatar src="http://www.josephandmeryschool.edu.pe/images/03-icono-cliente.png" >
+                            
                           </Avatar>
                     }
-                    title="User List"
-                    subheader="Users list"
+                    title="categorias"
+                    subheader=""
                 />
 
                 <CardContent>
@@ -79,7 +83,7 @@ class List extends Component {
                                 <TableRow>
                                     <TableCell>#</TableCell>
                                     <TableCell >RUC</TableCell>
-                                    <TableCell >Nombre</TableCell>
+                                    <TableCell >Persona</TableCell>
                                     <TableCell >Edit</TableCell>
                                     <TableCell >Delete</TableCell>
                                 </TableRow>
@@ -90,12 +94,15 @@ class List extends Component {
                                     <TableRow key={index}>
                                         <TableCell numeric>{index + 1}</TableCell>
                                         <TableCell >{d.ruc}</TableCell>
-                                        <TableCell >{d.nombre}</TableCell>
+                                        <TableCell >{d.person}</TableCell>
                                         <TableCell >
-                                            <Link to={`/catalogo/clientes/edit/${d.id}`} className="ui basic button green">Edit</Link>
+                                            <Link to={`/catalogo/categorias/edit/${d.id}`}  ><EditIcon color="blue" /></Link>
+                                          
                                         </TableCell>
-                                        <TableCell >
-                                            <Button onClick={() => del(d.id, this.props.history)} >Delete</Button>
+                                         <TableCell >
+                                            <IconButton aria-label="Delete" onClick={() => del(d.id, this.props.history)}>
+                                                <DeleteIcon color = "red"/>
+                                            </IconButton>
                                         </TableCell>
                                     </TableRow>
                                 )}

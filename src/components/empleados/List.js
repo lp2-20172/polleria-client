@@ -6,6 +6,10 @@ import Typography from 'material-ui/Typography'
 import TextField from 'material-ui/TextField';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton'
+import DeleteIcon from 'material-ui-icons/Delete';
+import EditIcon from 'material-ui-icons/Edit';
+
 
 import { getList, del } from '../../actions/empleado-action'
 import { connect } from 'react-redux'
@@ -23,7 +27,7 @@ class List extends Component {
     }
 
     change = (e) => {
-        const q = e.target.valueS
+        const q = e.target.value
         console.log("q:" + q)
         this.props.getList(q)
     }
@@ -46,12 +50,12 @@ class List extends Component {
             <Card>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe" >
-                            R
+                        <Avatar src="http://www.josephandmeryschool.edu.pe/images/03-icono-empleados.png" >
+                            
                           </Avatar>
                     }
-                    title="User List"
-                    subheader="Users list"
+                    title="categorias"
+                    subheader=""
                 />
 
                 <CardContent>
@@ -78,8 +82,8 @@ class List extends Component {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>#</TableCell>
-                                    <TableCell >Código</TableCell>
                                     <TableCell >Nombre</TableCell>
+                                    <TableCell >Código</TableCell>
                                     <TableCell >Edit</TableCell>
                                     <TableCell >Delete</TableCell>
                                 </TableRow>
@@ -89,13 +93,16 @@ class List extends Component {
                                 {list.map((d, index) =>
                                     <TableRow key={index}>
                                         <TableCell numeric>{index + 1}</TableCell>
-                                        <TableCell >{d.codigo}</TableCell>
                                         <TableCell >{d.nombre}</TableCell>
+                                        <TableCell >{d.codigo}</TableCell>
                                         <TableCell >
-                                            <Link to={`/catalogo/empleados/edit/${d.id}`} className="ui basic button green">Edit</Link>
+                                            <Link to={`/catalogo/empleados/edit/${d.id}`}  ><EditIcon color="blue" /></Link>
+                                          
                                         </TableCell>
-                                        <TableCell >
-                                            <Button onClick={() => del(d.id, this.props.history)} >Delete</Button>
+                                         <TableCell >
+                                            <IconButton aria-label="Delete" onClick={() => del(d.id, this.props.history)}>
+                                                <DeleteIcon color = "red"/>
+                                            </IconButton>
                                         </TableCell>
                                     </TableRow>
                                 )}
@@ -129,4 +136,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, {
     getList,
     del
-})(List)    
+})(List)

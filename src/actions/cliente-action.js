@@ -6,9 +6,9 @@ import client from './'
 
 const url = '/api-catalogo/clientes/'
 
-export const CLIENTE_LIST_REQUEST = "CLIENTES_LIST_REQUEST"
-export const CLIENTE_LIST_SUCCESS = 'CLIENTES_LIST_SUCCESS'
-export const CLIENTE_LIST_FAILURE = 'CLIENTES_LIST_FAILURE'
+export const CLIENTE_LIST_REQUEST = "CLIENTE_LIST_REQUEST"
+export const CLIENTE_LIST_SUCCESS = 'CLIENTE_LIST_SUCCESS'
+export const CLIENTE_LIST_FAILURE = 'CLIENTE_LIST_FAILURE'
 
 export const clienteList = () => ({
     type: CLIENTE_LIST_REQUEST,

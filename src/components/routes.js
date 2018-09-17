@@ -13,6 +13,8 @@ import EmpleadoForm from './empleados/Form'
 import EmpleadoList from './empleados/List'
 import DetalleVentaForm from './detalleVenta/Form'
 import DetalleVentaList from './detalleVenta/List'
+import UserList from './core/user/List'
+import UserForm from './core/user/Form'
 
 import Login from './Login'
 
@@ -36,36 +38,7 @@ const routes = [
   },
 
 
-  {
-    path: '/sandwiches',
-    title: 'sandwiches!',
-    icon: 'send',
-    component: Sandwiches
-  },
-  {
-    path: '/tacos',
-    title: 'tacos!',
-    icon: 'list',
-    component: Content,
-    routes: [
-      {
-        path: '/tacos/bus',
-        title: 'bus!',
-        icon: 'send',
-        component: Bus
-      },
-      {
-        path: '/tacos/cart',
-        component: Cart
-      },
-      {
-        path: '/tacos/about/:id',
-        title: 'About!',
-        icon: 'send',
-        component: About
-      }
-    ]
-  },
+
   {
     path: '/catalogo',
     title: 'Catalogo!',
@@ -75,8 +48,8 @@ const routes = [
       {
         path: '/catalogo/categorias/list',
         exact: true,
-        title: 'Categorias!',
-        icon: 'send',
+        title: 'Categorias',
+        icon: 'copyrightmark',
         component: CategoriaList
       },
       {
@@ -95,13 +68,12 @@ const routes = [
         component: CategoriaForm,
         novisible: true
       },
-
-
+     
       {
         path: '/catalogo/detalleVenta/list',
         exact: true,
         title: 'Detalle Ventas!',
-        icon: 'send',
+        icon: 'mail',
         component: DetalleVentaList,
       },
       {
@@ -125,7 +97,7 @@ const routes = [
         path: '/catalogo/productos/list',
         exact: true,
         title: 'Producto!',
-        icon: 'send',
+        icon: 'drafts',
         component: ProductoList,
       },
       {
@@ -149,7 +121,7 @@ const routes = [
         path: '/catalogo/ventas/list',
         exact: true,
         title: 'Ventas!',
-        icon: 'send',
+        icon: 'book',
         component: VentasList,
       },
       {
@@ -173,7 +145,7 @@ const routes = [
         path: '/catalogo/clientes/list',
         exact: true,
         title: 'Clientes!',
-        icon: 'send',
+        icon: 'personadd',
         component: ClientesList,
       },
       {
@@ -197,7 +169,7 @@ const routes = [
         path: '/catalogo/empleados/list',
         exact: true,
         title: 'Empleados!',
-        icon: 'send',
+        icon: 'lock',
         component: EmpleadoList,
       },
       {
@@ -216,9 +188,46 @@ const routes = [
         component: EmpleadoForm,
         novisible: true
       },
+      
+      ]
+    },
+      {
+       path: '/core',
+       title: 'Core',
+       icon: 'list',
+       component: Content,
+       routes: [
+     
 
-    ]
-  }
-]
+       {
+        path: '/core/users/list',
+        exact: true,
+        title: 'users',
+        icon: 'send',
+        component: UserList
+      },
+      {
+        path: '/core/users/new',
+        exact: true,
+        title: 'User New!',
+        icon: 'send',
+        component: UserForm,
+        novisible: true
+      },
+      {
+        path: '/core/users/edit/:id',
+        exact: true,
+        title: 'User Edit!',
+        icon: 'send',
+        component: UserForm,
+        novisible: true
+      }, 
+
+      ]
+    }
+  ] 
+
+
+  
 
 export { routes, routese }

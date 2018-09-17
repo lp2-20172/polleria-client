@@ -2,16 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Card, { CardHeader, CardContent } from 'material-ui/Card'
 import Avatar from 'material-ui/Avatar'
-import Button from 'material-ui/Button';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 //import Typography from 'material-ui/Typography'
 //import TextField from 'material-ui/TextField';
 
-import { getList as getCategoriaList } from '../../actions/empleado-action'
-import { save, getById, update } from '../../actions/empleado-action'
+import { save, getById, update } from '../../../actions/user-action'
 import { connect } from 'react-redux'
-
-
 
 class Form extends Component {
     /*
@@ -19,8 +14,8 @@ class Form extends Component {
             super(props);
             this.state = {
                 d: {
-                    codigo: '',
-                    nombre: '',
+                    username: '',
+                    email: '',
                 },
                 saving: false
             }
@@ -29,8 +24,9 @@ class Form extends Component {
         super(props);
         this.state = {
             id: props.data ? props.data.id : null,
-            codigo: props.data ? props.data.codigo : '',
-            nombre: props.data ? props.data.nombre : ''
+            username: props.data ? props.data.username : '',
+            email: props.data ? props.data.email : '',
+            estado: props.data ? props.data.estado : '',
         }
     }
     /*
@@ -39,8 +35,8 @@ class Form extends Component {
             console.log('componentWillReceiveProps data:' + JSON.stringify(data))
             this.setState({
                 id: data.id,
-                codigo: data.codigo,
-                nombre: data.nombre
+                username: data.username,
+                email: data.email
             })
         }
     */
@@ -50,14 +46,16 @@ class Form extends Component {
         if (id) {
             //this.props.getById(id)
             //this.props.getItemAsync(id)
+
             this.props.getById(id).then(data => {
                 console.log('componentWillReceiveProps data:' + JSON.stringify(data))
                 this.setState({
                     id: data.id,
-                    codigo: data.codigo,
-                    nombre: data.nombre
+                    username: data.username,
+                    email: data.email
                 })
             }).catch(e => {
+
             });
         }
         */
@@ -70,8 +68,9 @@ class Form extends Component {
             this.props.getById(id).then(data => {
                 this.setState({
                     id: data.id,
-                    codigo: data.codigo,
-                    nombre: data.nombre
+                    username: data.username,
+                    email: data.email,
+                    estado: data.estado
                 });
             });
         }
@@ -106,72 +105,33 @@ class Form extends Component {
             <Card>
                 <CardHeader
                     avatar={
-                        <Avatar src = "https://icon-icons.com/icons2/1147/PNG/512/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png" >
-                            
+                        <Avatar aria-label="Recipe" >
+                            R
                           </Avatar>
                     }
                     title="User Form"
                     subheader="Users Form"
                 />
                 <CardContent>
-                    <form >
-                        <InputLabel >Codigo</InputLabel>
-                        <Input
-
-                            type="text"
-                            name="codigo"
-
-                            value={this.state.codigo}
-                            onChange={this.handleChange}
-                            startAdornment={<InputAdornment position="start"> : </InputAdornment>}
-                        />
-
-                    </form>
-
-                    <form >
-                        <InputLabel >Nombre</InputLabel>
-                        <Input
-
-                            type="text"
-                            name="nombre"
-
-                            value={this.state.nombre}
-                            onChange={this.handleChange}
-                            startAdornment={<InputAdornment position="start"> : </InputAdornment>}
-                        />
-
-                    </form>
-                    
-                    
-
-                       
-                    
-                </CardContent>
-                  <CardContent>
                     <form onSubmit={this.handleSubmit}>
-                        <Button
-                            raised
-                            color="primary"
-                            type="submit"
-                            margin="normal"
-                        >
-                            Guardar
-                        </Button>
-                        {'  '}
-                        <Button
-                            raised
-                            color="accent"
-                            type="reset"
-                            
-                            margin="normal"
-                            onClick={(e) => this.props.history.push('/catalogo/empleados/list')}>
-                        
-                            cancelar
-                        </Button>
-                        
-                     </form>
+                        <label>
+                            username:
+                            <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
+                        </label>
+                        <br />
 
+                        <label>
+                            Email:
+                            <input type="text" name="email" value={this.state.email} onChange={this.handleChange} />
+                        </label>
+                        <br />
 
+                        <label>
+                            Estado:
+                            <input type="text" name="estado" value={this.state.estado} onChange={this.handleChange} />
+                        </label>
+                        <input type="submit" value="save" />
+                    </form>
                 </CardContent>
             </Card>
         )
@@ -185,7 +145,7 @@ Form.propTypes = {
 const mapStateToProps = (state, props) => {
     if (props.match.params.id) {
         return {
-            data: state.empleado.list.find(item => item.id + '' === props.match.params.id + '')
+            data: state.categoria.list.find(item => item.id + '' === props.match.params.id + '')
         }
     }
     return {

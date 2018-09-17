@@ -2,11 +2,16 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Card, { CardHeader, CardContent } from 'material-ui/Card'
 import Avatar from 'material-ui/Avatar'
+import Button from 'material-ui/Button';
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 //import Typography from 'material-ui/Typography'
 //import TextField from 'material-ui/TextField';
 
+import { getList as getCategoriaList } from '../../actions/producto-action'
 import { save, getById, update } from '../../actions/producto-action'
 import { connect } from 'react-redux'
+
+
 
 class Form extends Component {
     /*
@@ -26,8 +31,9 @@ class Form extends Component {
             id: props.data ? props.data.id : null,
             nombre: props.data ? props.data.nombre : '',
             codigo: props.data ? props.data.codigo : '',
-            detalle: props.data ? props.data.detalle : '',
-            precioVenta: props.data ? props.data.precioVenta : ''
+            detalle: props.data ? props.data.detalle: '',
+            precio_venta: props.data ? props.data.precio_venta: '',
+            categoria: props.data ? props.data.categoria: ''
         }
     }
     /*
@@ -47,7 +53,6 @@ class Form extends Component {
         if (id) {
             //this.props.getById(id)
             //this.props.getItemAsync(id)
-
             this.props.getById(id).then(data => {
                 console.log('componentWillReceiveProps data:' + JSON.stringify(data))
                 this.setState({
@@ -56,7 +61,6 @@ class Form extends Component {
                     nombre: data.nombre
                 })
             }).catch(e => {
-
             });
         }
         */
@@ -71,8 +75,9 @@ class Form extends Component {
                     id: data.id,
                     nombre: data.nombre,
                     codigo: data.codigo,
-                    detalle: data.nombre,
-                    precioVenta: data.nombre
+                    detalle: data.detalle,
+                    precio_venta: data.precio_venta,
+                    categoria: data.categoria
                 });
             });
         }
@@ -107,35 +112,113 @@ class Form extends Component {
             <Card>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe" >
-                            R
+                        <Avatar src = "https://icon-icons.com/icons2/1147/PNG/512/1486486297-attribute-category-label-shop-price-price-tag-tag_81213.png" >
+                            
                           </Avatar>
                     }
                     title="User Form"
                     subheader="Users Form"
                 />
                 <CardContent>
-                    <form onSubmit={this.handleSubmit}>
 
-                        <label>
-                            Name:
-                            <input type="text" name="nombre" value={this.state.nombre} onChange={this.handleChange} />
-                        </label>
-                        <label>
-                            Codigo:
-                            <input type="text" name="codigo" value={this.state.codigo} onChange={this.handleChange} />
-                        </label>
-                        <label>
-                            Detalle:
-                            <input type="text" name="detalle" value={this.state.detalle} onChange={this.handleChange} />
-                        </label>
-                        <label>
-                            Precio Venta:
-                            <input type="text" name="precioVenta" value={this.state.precioVenta} onChange={this.handleChange} />
-                        </label>
-                        <br />
-                        <input type="submit" value="Submit" />
+                    <form >
+                        <InputLabel >Nombre</InputLabel>
+                        <Input
+
+                            type="text"
+                            name="nombre"
+
+                            value={this.state.nombre}
+                            onChange={this.handleChange}
+                            startAdornment={<InputAdornment position="start"> : </InputAdornment>}
+                        />
+
                     </form>
+
+                    <form >
+                        <InputLabel >Codigo</InputLabel>
+                        <Input
+
+                            type="text"
+                            name="codigo"
+
+                            value={this.state.codigo}
+                            onChange={this.handleChange}
+                            startAdornment={<InputAdornment position="start"> : </InputAdornment>}
+                        />
+
+                     </form>
+
+                    <form >
+                        <InputLabel >Detalle</InputLabel>
+                        <Input
+
+                            type="text"
+                            name="detalle"
+
+                            value={this.state.detalle}
+                            onChange={this.handleChange}
+                            startAdornment={<InputAdornment position="start"> : </InputAdornment>}
+                        />
+
+                    </form>
+
+                    <form >
+                        <InputLabel >Precio_venta</InputLabel>
+                        <Input
+
+                            type="text"
+                            name="precio_venta"
+
+                            value={this.state.precio_venta}
+                            onChange={this.handleChange}
+                            startAdornment={<InputAdornment position="start"> : </InputAdornment>}
+                        />
+
+                     </form>
+
+                    <form >
+                        <InputLabel >Categoria</InputLabel>
+                        <Input
+
+                            type="text"
+                            name="categoria"
+
+                            value={this.state.categoria}
+                            onChange={this.handleChange}
+                            startAdornment={<InputAdornment position="start"> : </InputAdornment>}
+                        />
+
+                    </form>
+
+                   
+                         
+                </CardContent>
+                  <CardContent>
+                    <form onSubmit={this.handleSubmit}>
+                        <Button
+                            raised
+                            color="primary"
+                            type="submit"
+                            margin="normal"
+                        >
+                            Guardar
+                        </Button>
+                        {'  '}
+                        <Button
+                            raised
+                            color="accent"
+                            type="reset"
+                            
+                            margin="normal"
+                            onClick={(e) => this.props.history.push('/catalogo/productos/list')}>
+                        
+                            cancelar
+                        </Button>
+                        
+                     </form>
+
+
                 </CardContent>
             </Card>
         )
@@ -149,7 +232,7 @@ Form.propTypes = {
 const mapStateToProps = (state, props) => {
     if (props.match.params.id) {
         return {
-            data: state.categoria.list.find(item => item.id + '' === props.match.params.id + '')
+            data: state.producto.list.find(item => item.id + '' === props.match.params.id + '')
         }
     }
     return {
